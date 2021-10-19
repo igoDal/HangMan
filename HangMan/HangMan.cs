@@ -8,13 +8,13 @@ namespace HangMan
         private int incorrectGuess = 0;
         private string enteredWord;
 
-        public void WordToGuess() //method which allows us to enter a word to guess
+        public void WordToGuess() 
         {
             Console.Write("Enter a word to guess: ");
             enteredWord = Console.ReadLine();
         }
 
-        public bool IsWord(string enteredWord, List<string> letterGuessed) //
+        public bool IsWord(string enteredWord, List<string> letterGuessed)
         {
             bool word = false;
             for (int i = 0; i < enteredWord.Length; i++)
