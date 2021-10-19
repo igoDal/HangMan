@@ -5,21 +5,16 @@ namespace HangMan
 {
     class HangMan
     {
-        public int incorrectGuess = 0;
-        public string enteredWord;
+        private int incorrectGuess = 0;
+        private string enteredWord;
 
-
-
-        public void WordToGuess()
+        public void WordToGuess() //method which allows us to enter a word to guess
         {
-
             Console.Write("Enter a word to guess: ");
             enteredWord = Console.ReadLine();
-
-            Console.WriteLine($"Word to guess: {enteredWord}");
         }
 
-        public bool IsWord(string enteredWord, List<string> letterGuessed)
+        public bool IsWord(string enteredWord, List<string> letterGuessed) //
         {
             bool word = false;
             for (int i = 0; i < enteredWord.Length; i++)
@@ -31,7 +26,7 @@ namespace HangMan
                 }
                 else
                 {
-                    word = false;
+                    return word = false;
                 }
             }
             return word;
@@ -57,29 +52,30 @@ namespace HangMan
         public void GuessALetter()
         {
             List<string> letterGuessed = new List<string>();
-            int live = 1;
+            bool isGameLive = true;
+
             Isletter(enteredWord, letterGuessed);
-            while (live > 0)
+            while (isGameLive)
             {
                 Console.WriteLine("Please enter a letter:");
-                string input = Console.ReadLine();
-                if (letterGuessed.Contains(input))
+                string enteredLetter = Console.ReadLine();
+                if (letterGuessed.Contains(enteredLetter))
                 {
-                    Console.WriteLine($"You already entered a letter {input}, try another one.");
+                    Console.WriteLine($"You already entered a letter {enteredLetter}, try another one.");
                     continue;
                 }
-                letterGuessed.Add(input);
+                letterGuessed.Add(enteredLetter);
                 if (IsWord(enteredWord, letterGuessed))
                 {
                     Console.WriteLine(enteredWord);
                     Console.WriteLine("Congratulations, you've won!");
                     break;
                 }
-                else if (enteredWord.Contains(input))
+                else if (enteredWord.Contains(enteredLetter))
                 {
                     Console.WriteLine("Good guess!");
-                    string letters = Isletter(enteredWord, letterGuessed);
-                    Console.WriteLine(letters);
+                    string lettersGuessedInAWord = Isletter(enteredWord, letterGuessed);
+                    Console.WriteLine(lettersGuessedInAWord);
                 }
                 else
                 {
@@ -90,7 +86,7 @@ namespace HangMan
                     if (incorrectGuess == 10)
                     {
                         Console.WriteLine("YOU'VE LOST!");
-                        live = 0;
+                        isGameLive = false;
                     }
 
                 }
@@ -209,12 +205,7 @@ namespace HangMan
                         "\n/\\");
                     Console.WriteLine("Game over, you've lost.");
                     break;
-                default:
-                    Console.WriteLine("Enter a letter again.");
-                    break;
             }
         }
-
-
     }
 }
